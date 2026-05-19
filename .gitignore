@@ -1,0 +1,68 @@
+# IDEs and OS files
+.idea/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.DS_Store
+Thumbs.db
+*.db
+
+# Agents / Gemini Tooling
+.gemini/
+.agents/
+skills-lock.json
+*.tmp
+~$*.docx
+
+# --- Flutter / Dart (fe_mobile & fe_admin_web) ---
+# Ignore build and dependency folders in subdirectories
+**/build/
+**/.dart_tool/
+**/.flutter-plugins-dependencies
+**/.pub-cache/
+**/.pub/
+**/doc/api/
+**/coverage/
+
+# Android Studio artifacts
+**/android/app/debug/
+**/android/app/profile/
+**/android/app/release/
+
+# Flutter plugins
+**/.flutter-plugins
+**/ios/Flutter/.last_build_id
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/flutter_export_environment.sh
+**/pubspec.lock.back
+
+# --- .NET Core / C# (backend) ---
+# Ignore build artifacts
+**/bin/
+**/obj/
+**/publish/
+
+# User-specific files
+**/*.rsuser
+**/*.suo
+**/*.user
+**/*.userosscache
+**/*.sln.docstates
+
+# Mono Auto-generated files
+mono_crash.*
+
+# Web Tools
+_ReSharper*/
+*.[Dd]ev[Ee]nv.[Cc]onfig
+
+# EF Core Migrations & local databases
+**/App_Data/
+**/*.db
+**/*.sqlite
+
+# Docker settings
+.dockerignore

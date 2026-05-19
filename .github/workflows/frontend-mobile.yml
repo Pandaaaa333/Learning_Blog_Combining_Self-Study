@@ -1,0 +1,49 @@
+name: Frontend Mobile CI (Flutter)
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'App-Flutter/**'
+      - '.github/workflows/frontend-mobile.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'App-Flutter/**'
+      - '.github/workflows/frontend-mobile.yml'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: App-Flutter
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Java (required for Android builds)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.38.7'
+          channel: 'stable'
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Analyze code
+        run: flutter analyze --no-fatal-warnings --no-fatal-infos || true
+
+      - name: Run unit tests
+        run: flutter test
+
+      - name: Build APK (Verify Build)
+        run: flutter build apk --debug

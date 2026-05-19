@@ -1,0 +1,43 @@
+name: Frontend Admin CI (Flutter Web)
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'assignment_and_deadline_management_project/**'
+      - '.github/workflows/frontend-admin.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'assignment_and_deadline_management_project/**'
+      - '.github/workflows/frontend-admin.yml'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: assignment_and_deadline_management_project
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.38.7'
+          channel: 'stable'
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Analyze code
+        run: flutter analyze --no-fatal-warnings --no-fatal-infos || true
+
+      - name: Run unit & widget tests
+        run: flutter test
+
+      - name: Build Web (Verify Build)
+        run: flutter build web
