@@ -244,7 +244,7 @@ class TodoScreen extends StatelessWidget {
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(
-                        'Lỗi: ${viewModel.error}',
+                        'Error: ${viewModel.error}',
                         style: const TextStyle(color: Colors.red),
                       ),
                     ),
@@ -262,28 +262,28 @@ class TodoScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'Lịch trình hôm nay', 
+                  "Today's Schedule", 
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)
                 ),
                 const SizedBox(height: 12),
                 Row(
                   children: [
                     _FilterChip(
-                      label: 'Tất cả', 
+                      label: 'All', 
                       index: 0, 
                       selectedIndex: viewModel.selectedFilterIndex, 
                       onTap: () => viewModel.changeFilter(0)
                     ),
                     const SizedBox(width: 8),
                     _FilterChip(
-                      label: 'Chưa xong', 
+                      label: 'Pending', 
                       index: 1, 
                       selectedIndex: viewModel.selectedFilterIndex, 
                       onTap: () => viewModel.changeFilter(1)
                     ),
                     const SizedBox(width: 8),
                     _FilterChip(
-                      label: 'Đã hoàn thành', 
+                      label: 'Completed', 
                       index: 2, 
                       selectedIndex: viewModel.selectedFilterIndex, 
                       onTap: () => viewModel.changeFilter(2)
@@ -299,7 +299,7 @@ class TodoScreen extends StatelessWidget {
           viewModel.isLoading 
             ? const Padding(padding: EdgeInsets.all(32), child: Center(child: CircularProgressIndicator(color: Color(0xFF52B794))))
             : viewModel.filteredTasks.isEmpty 
-              ? const Padding(padding: EdgeInsets.all(32), child: Center(child: Text('Không có việc cần làm!')))
+              ? const Padding(padding: EdgeInsets.all(32), child: Center(child: Text('No tasks to do!')))
               : ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),

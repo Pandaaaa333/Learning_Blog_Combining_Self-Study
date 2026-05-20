@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Đăng nhập thất bại: ${e.toString()}'),
+              content: Text('Login failed: ${e.toString()}'),
               backgroundColor: Colors.redAccent,
               behavior: SnackBarBehavior.floating,
               shape: RoundedRectangleBorder(
@@ -115,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       // Text Greeting
                       Text(
-                        'Chào mừng trở lại!',
+                        'Welcome Back!',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.beVietnamPro(
                           fontSize: 28,
@@ -126,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Đăng nhập để tiếp tục quản lý học tập',
+                        'Login to continue managing your learning',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.beVietnamPro(
                           fontSize: 15,
@@ -157,28 +157,28 @@ class _LoginScreenState extends State<LoginScreen> {
                             children: [
                               AuthTextField(
                                 controller: _emailController,
-                                hintText: 'Địa chỉ Email',
+                                hintText: 'Email Address',
                                 icon: Icons.email_outlined,
                                 keyboardType: TextInputType.emailAddress,
                                 validator: (value) {
                                   if (value == null || value.isEmpty)
-                                    return 'Vui lòng nhập email';
+                                    return 'Please enter email';
                                   if (!value.contains('@'))
-                                    return 'Email không hợp lệ';
+                                    return 'Invalid email';
                                   return null;
                                 },
                               ),
                               const SizedBox(height: 16),
                               AuthTextField(
                                 controller: _passwordController,
-                                hintText: 'Mật khẩu',
+                                hintText: 'Password',
                                 icon: Icons.lock_outline_rounded,
                                 isPassword: true,
                                 validator: (value) {
                                   if (value == null || value.isEmpty)
-                                    return 'Vui lòng nhập mật khẩu';
+                                    return 'Please enter password';
                                   if (value.length < 6)
-                                    return 'Mật khẩu phải ít nhất 6 ký tự';
+                                    return 'Password must be at least 6 characters';
                                   return null;
                                 },
                               ),
@@ -194,7 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         MaterialTapTargetSize.shrinkWrap,
                                   ),
                                   child: Text(
-                                    'Quên mật khẩu?',
+                                    'Forgot password?',
                                     style: GoogleFonts.beVietnamPro(
                                       color: const Color(0xFF52B794),
                                       fontWeight: FontWeight.w600,
@@ -205,7 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               const SizedBox(height: 24),
                               PrimaryButton(
-                                text: 'Đăng nhập',
+                                text: 'Login',
                                 isLoading: _isLoading,
                                 onPressed: _handleLogin,
                               ),
@@ -221,7 +221,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Chưa có tài khoản? ',
+                            "Don't have an account? ",
                             style: GoogleFonts.beVietnamPro(
                               color: Colors.grey[600],
                               fontSize: 15,
@@ -254,7 +254,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               );
                             },
                             child: Text(
-                              'Đăng ký ngay',
+                              'Register now',
                               style: GoogleFonts.beVietnamPro(
                                 color: const Color(0xFF52B794),
                                 fontWeight: FontWeight.bold,

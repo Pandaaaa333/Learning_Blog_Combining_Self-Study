@@ -12,20 +12,33 @@ class FocusViewModel extends ChangeNotifier {
   Duration countdownRemaining = const Duration(minutes: 25);
   Timer? _countdownTimer;
   bool isCountdownRunning = false;
-  String countdownLabel = 'Hẹn giờ';
+  String countdownLabel = 'Focus';
 
   // Trạng thái Gamification
   bool hasCompletedSession = false;
   int lastXpEarned = 0;
+  bool isTreeDead = false;
+  double deadProgress = 0.0;
+  String? selectedTaskId;
 
   void setCountdownDuration(Duration duration) {
     countdownDuration = duration;
     countdownRemaining = duration;
+    isTreeDead = false;
+    deadProgress = 0.0;
     notifyListeners();
   }
 
-  void setCountdownLabel(String label) {
+  void setCountdownLabel(String label, {String? taskId}) {
     countdownLabel = label.isEmpty ? 'Hẹn giờ' : label;
+    selectedTaskId = taskId;
+    notifyListeners();
+  }
+
+  void resetTree() {
+    isTreeDead = false;
+    deadProgress = 0.0;
+    countdownRemaining = countdownDuration;
     notifyListeners();
   }
 
@@ -35,6 +48,8 @@ class FocusViewModel extends ChangeNotifier {
       _countdownTimer?.cancel();
     } else {
       if (countdownRemaining.inSeconds == 0) return;
+      isTreeDead = false;
+      deadProgress = 0.0;
       isCountdownRunning = true;
       hasCompletedSession = false;
       _countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -56,9 +71,19 @@ class FocusViewModel extends ChangeNotifier {
   }
 
   void cancelCountdown() {
-    isCountdownRunning = false;
-    _countdownTimer?.cancel();
-    countdownRemaining = countdownDuration; 
+    if (isCountdownRunning) {
+      isTreeDead = true;
+      final totalSec = countdownDuration.inSeconds;
+      final remSec = countdownRemaining.inSeconds;
+      deadProgress = totalSec > 0 ? (totalSec - remSec) / totalSec : 0.0;
+      isCountdownRunning = false;
+      _countdownTimer?.cancel();
+      countdownRemaining = Duration.zero;
+    } else {
+      isTreeDead = false;
+      deadProgress = 0.0;
+      countdownRemaining = countdownDuration; 
+    }
     hasCompletedSession = false;
     notifyListeners();
   }

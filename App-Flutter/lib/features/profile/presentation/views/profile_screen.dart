@@ -17,8 +17,8 @@ class ProfileScreen extends StatelessWidget {
     const primaryColor = Color(0xFF52B794);
     
     final user = profileVM.user;
-    final userName = user?['name'] ?? 'Người dùng';
-    final userRole = user?['role'] ?? 'Sinh viên';
+    final userName = user?['name'] ?? 'User';
+    final userRole = user?['role'] ?? 'Student';
     final avatarUrl = user?['avatarUrl'];
 
     final points = user?['points'] ?? 0;
@@ -29,7 +29,7 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Hồ sơ', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+        title: const Text('Profile', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: false,
@@ -100,7 +100,7 @@ class ProfileScreen extends StatelessWidget {
                                 const Icon(Icons.stars_rounded, color: primaryColor, size: 18),
                                 const SizedBox(width: 4),
                                 Text(
-                                  'Cấp độ $level',
+                                  'Level $level',
                                   style: const TextStyle(
                                     color: primaryColor,
                                     fontWeight: FontWeight.bold,
@@ -135,7 +135,7 @@ class ProfileScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Tiến trình cấp độ',
+                            'Level Progress',
                             style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                           ),
                           Text(
@@ -151,19 +151,19 @@ class ProfileScreen extends StatelessWidget {
 
                 _buildMenuTile(
                   icon: Icons.article_outlined,
-                  label: 'Bài viết đã đăng',
-                  onTap: () => _navigateToPosts(context, 'Bài viết của tôi', feedVM.myPosts),
+                  label: 'My Posts',
+                  onTap: () => _navigateToPosts(context, 'My Posts', feedVM.myPosts),
                   iconColor: primaryColor,
                 ),
                 _buildMenuTile(
                   icon: Icons.favorite_border_rounded,
-                  label: 'Quan tâm',
-                  onTap: () => _navigateToPosts(context, 'Bài viết đã thích', feedVM.likedPosts),
+                  label: 'Favorites',
+                  onTap: () => _navigateToPosts(context, 'Liked Posts', feedVM.likedPosts),
                   iconColor: primaryColor,
                 ),
                 _buildMenuTile(
                   icon: Icons.book_outlined,
-                  label: 'Cài đặt môn học',
+                  label: 'Subject Onboarding',
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(builder: (_) => const SubjectOnboardingView()),
@@ -176,7 +176,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 _buildMenuTile(
                   icon: Icons.logout_rounded,
-                  label: 'Đăng xuất',
+                  label: 'Logout',
                   onTap: () => profileVM.logout(), 
                   iconColor: Colors.red,
                   textColor: Colors.red,
@@ -207,14 +207,14 @@ class ProfileScreen extends StatelessWidget {
         
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Cập nhật ảnh đại diện thành công')),
+            const SnackBar(content: Text('Avatar updated successfully')),
           );
         }
       } catch (e) {
         if (context.mounted) Navigator.pop(context); // Close loading dialog
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Lỗi: ${e.toString()}'), backgroundColor: Colors.red),
+            SnackBar(content: Text('Error: ${e.toString()}'), backgroundColor: Colors.red),
           );
         }
       }
@@ -254,7 +254,7 @@ class ProfileScreen extends StatelessWidget {
             leading: const BackButton(color: Colors.black),
           ),
           body: posts.isEmpty 
-            ? const Center(child: Text('Chưa có bài viết nào', style: TextStyle(color: Colors.grey, fontSize: 16)))
+            ? const Center(child: Text('No posts yet', style: TextStyle(color: Colors.grey, fontSize: 16)))
             : ListView.builder(
                 padding: const EdgeInsets.all(16),
                 itemCount: posts.length,

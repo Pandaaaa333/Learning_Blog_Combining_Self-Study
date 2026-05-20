@@ -33,7 +33,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Đăng ký thất bại: ${e.toString()}'),
+              content: Text('Registration failed: ${e.toString()}'),
               backgroundColor: Colors.redAccent,
               behavior: SnackBarBehavior.floating,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -107,7 +107,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       
                       // Text Greeting
                       Text(
-                        'Tạo tài khoản mới ✨',
+                        'Create New Account ✨',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.beVietnamPro(
                           fontSize: 28,
@@ -118,7 +118,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Cùng bắt đầu hành trình học tập thông minh',
+                        'Start your smart learning journey today',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.beVietnamPro(
                           fontSize: 15,
@@ -149,52 +149,52 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             children: [
                               AuthTextField(
                                 controller: _nameController,
-                                hintText: 'Họ và tên',
+                                hintText: 'Full Name',
                                 icon: Icons.person_outline_rounded,
                                 validator: (value) {
-                                  if (value == null || value.isEmpty) return 'Vui lòng nhập họ tên';
+                                  if (value == null || value.isEmpty) return 'Please enter full name';
                                   return null;
                                 },
                               ),
                               const SizedBox(height: 16),
                               AuthTextField(
                                 controller: _emailController,
-                                hintText: 'Địa chỉ Email',
+                                hintText: 'Email Address',
                                 icon: Icons.email_outlined,
                                 keyboardType: TextInputType.emailAddress,
                                 validator: (value) {
-                                  if (value == null || value.isEmpty) return 'Vui lòng nhập email';
-                                  if (!value.contains('@')) return 'Email không hợp lệ';
+                                  if (value == null || value.isEmpty) return 'Please enter email';
+                                  if (!value.contains('@')) return 'Invalid email';
                                   return null;
                                 },
                               ),
                               const SizedBox(height: 16),
                               AuthTextField(
                                 controller: _passwordController,
-                                hintText: 'Mật khẩu',
+                                hintText: 'Password',
                                 icon: Icons.lock_outline_rounded,
                                 isPassword: true,
                                 validator: (value) {
-                                  if (value == null || value.isEmpty) return 'Vui lòng nhập mật khẩu';
-                                  if (value.length < 6) return 'Mật khẩu phải ít nhất 6 ký tự';
+                                  if (value == null || value.isEmpty) return 'Please enter password';
+                                  if (value.length < 6) return 'Password must be at least 6 characters';
                                   return null;
                                 },
                               ),
                               const SizedBox(height: 16),
                               AuthTextField(
                                 controller: _confirmPasswordController,
-                                hintText: 'Xác nhận mật khẩu',
+                                hintText: 'Confirm Password',
                                 icon: Icons.lock_reset_rounded,
                                 isPassword: true,
                                 validator: (value) {
-                                  if (value == null || value.isEmpty) return 'Vui lòng xác nhận mật khẩu';
-                                  if (value != _passwordController.text) return 'Mật khẩu không khớp';
+                                  if (value == null || value.isEmpty) return 'Please confirm password';
+                                  if (value != _passwordController.text) return 'Passwords do not match';
                                   return null;
                                 },
                               ),
                               const SizedBox(height: 32),
                               PrimaryButton(
-                                text: 'Đăng ký ngay',
+                                text: 'Register Now',
                                 isLoading: _isLoading,
                                 onPressed: _handleRegister,
                               ),
@@ -210,7 +210,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Đã có tài khoản? ',
+                            'Already have an account? ',
                             style: GoogleFonts.beVietnamPro(color: Colors.grey[600], fontSize: 15),
                           ),
                           GestureDetector(
@@ -226,7 +226,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               );
                             },
                             child: Text(
-                              'Đăng nhập ngay',
+                              'Login now',
                               style: GoogleFonts.beVietnamPro(
                                 color: const Color(0xFF52B794),
                                 fontWeight: FontWeight.bold,

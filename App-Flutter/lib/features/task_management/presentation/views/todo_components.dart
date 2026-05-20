@@ -10,7 +10,7 @@ class TaskSearchDelegate extends SearchDelegate {
   TaskSearchDelegate(this.viewModel);
 
   @override
-  String get searchFieldLabel => 'Tìm kiếm công việc...';
+  String get searchFieldLabel => 'Search tasks...';
 
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -43,7 +43,7 @@ class TaskSearchDelegate extends SearchDelegate {
     ).toList();
 
     if (results.isEmpty) {
-      return const Center(child: Text('Không tìm thấy công việc nào.'));
+      return const Center(child: Text('No tasks found.'));
     }
 
     return ListView.builder(
@@ -108,7 +108,7 @@ void showAddTaskBottomSheet(BuildContext context, TodoViewModel viewModel) {
                             child: const Icon(Icons.close, size: 20, color: Colors.black87),
                           ),
                         ),
-                        const Text('Mới', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                        const Text('New Task', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                         // Nút Lưu
                         GestureDetector(
                           onTap: () {
@@ -143,7 +143,7 @@ void showAddTaskBottomSheet(BuildContext context, TodoViewModel viewModel) {
                             autofocus: true,
                             style: const TextStyle(fontSize: 16),
                             decoration: const InputDecoration(
-                              hintText: 'Tiêu đề',
+                              hintText: 'Title',
                               border: InputBorder.none,
                               contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                             ),
@@ -158,7 +158,7 @@ void showAddTaskBottomSheet(BuildContext context, TodoViewModel viewModel) {
                             children: [
                               // Cả ngày (All-day)
                               ListTile(
-                                title: const Text('Cả ngày', style: TextStyle(fontSize: 16)),
+                                title: const Text('All-day', style: TextStyle(fontSize: 16)),
                                 trailing: Switch(
                                   value: isAllDay,
                                   activeColor: const Color(0xFF52B794),
@@ -172,7 +172,7 @@ void showAddTaskBottomSheet(BuildContext context, TodoViewModel viewModel) {
                                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                                 child: Row(
                                   children: [
-                                    const Text('Bắt đầu', style: TextStyle(fontSize: 16)),
+                                    const Text('Starts', style: TextStyle(fontSize: 16)),
                                     const Spacer(),
                                     if (!isAllDay) ...[
                                       _TimeButton(
@@ -204,7 +204,7 @@ void showAddTaskBottomSheet(BuildContext context, TodoViewModel viewModel) {
                                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                                 child: Row(
                                   children: [
-                                    const Text('Kết thúc', style: TextStyle(fontSize: 16)),
+                                    const Text('Ends', style: TextStyle(fontSize: 16)),
                                     const Spacer(),
                                     if (!isAllDay) ...[
                                       _TimeButton(
@@ -277,7 +277,7 @@ class _DateButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(8)),
-        child: Text(DateFormat('dd thg MM, yyyy').format(date), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
+        child: Text(DateFormat('dd MMM yyyy').format(date), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
       ),
     );
   }
