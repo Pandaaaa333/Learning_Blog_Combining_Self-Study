@@ -3,7 +3,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fe_mobile/core/network/api_client.dart';
 
 class AuthService {
-  final ApiClient _apiClient = ApiClient();
+  final ApiClient _apiClient;
+
+  AuthService({ApiClient? apiClient}) : _apiClient = apiClient ?? ApiClient();
 
   Future<Map<String, dynamic>> login(String email, String password) async {
     try {

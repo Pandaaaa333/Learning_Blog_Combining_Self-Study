@@ -3,7 +3,8 @@ import 'package:fe_mobile/features/auth/data/services/auth_service.dart';
 import 'package:fe_mobile/core/network/api_client.dart';
 
 class ProfileViewModel extends ChangeNotifier {
-  final AuthService _authService = AuthService();
+  final AuthService _authService;
+  final ApiClient _apiClient;
   
   bool _isLoggedIn = false;
   Map<String, dynamic>? _user;
@@ -23,7 +24,9 @@ class ProfileViewModel extends ChangeNotifier {
   int get totalDurationMinutes => _totalDurationMinutes;
   bool get isStatsLoading => _isStatsLoading;
 
-  ProfileViewModel() {
+  ProfileViewModel({AuthService? authService, ApiClient? apiClient})
+      : _authService = authService ?? AuthService(),
+        _apiClient = apiClient ?? ApiClient() {
     checkAuthStatus();
   }
 
@@ -33,8 +36,7 @@ class ProfileViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final ApiClient apiClient = ApiClient();
-      final response = await apiClient.dio.get('/SelfLearn/stats', queryParameters: {'days': 365});
+      final response = await _apiClient.dio.get('/SelfLearn/stats', queryParameters: {'days': 365});
       if (response.statusCode == 200) {
         _studyStats = response.data['dailyStats'] ?? [];
         _totalSessions = response.data['totalSessions'] ?? 0;

@@ -39,7 +39,7 @@ class TaskModel {
 }
 
 class TodoViewModel extends ChangeNotifier {
-  final TodoService _todoService = TodoService();
+  final TodoService _todoService;
   
   DateTime _selectedDate = DateTime.now(); 
   DateTime _focusedDate = DateTime.now();
@@ -58,7 +58,7 @@ class TodoViewModel extends ChangeNotifier {
 
   List<TaskModel> _allTasks = [];
 
-  TodoViewModel() {
+  TodoViewModel({TodoService? todoService}) : _todoService = todoService ?? TodoService() {
     fetchTasks();
   }
 

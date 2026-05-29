@@ -13,22 +13,22 @@ void main() {
       await tester.pumpAndSettle();
 
       // Verify that we are on the login screen and see the welcoming texts
-      expect(find.text('Chào mừng trở lại!'), findsOneWidget);
-      expect(find.text('Đăng nhập để tiếp tục quản lý học tập'), findsOneWidget);
+      expect(find.text('Welcome Back!'), findsOneWidget);
+      expect(find.text('Login to continue managing your learning'), findsOneWidget);
 
       // Verify that the email and password text fields are present
       final Finder emailField = find.byWidgetPredicate(
-        (widget) => widget is TextField && widget.decoration?.hintText == 'Địa chỉ Email',
+        (widget) => widget is TextField && widget.decoration?.hintText == 'Email Address',
       );
       final Finder passwordField = find.byWidgetPredicate(
-        (widget) => widget is TextField && widget.decoration?.hintText == 'Mật khẩu',
+        (widget) => widget is TextField && widget.decoration?.hintText == 'Password',
       );
       
       expect(emailField, findsOneWidget);
       expect(passwordField, findsOneWidget);
 
       // Verify that the login button is present
-      final Finder loginBtn = find.text('Đăng nhập');
+      final Finder loginBtn = find.text('Login');
       expect(loginBtn, findsOneWidget);
 
       // Scenario A: Test validation errors by clicking Login when fields are empty
@@ -36,8 +36,8 @@ void main() {
       await tester.pumpAndSettle();
 
       // Verify validation error messages are displayed
-      expect(find.text('Vui lòng nhập email'), findsOneWidget);
-      expect(find.text('Vui lòng nhập mật khẩu'), findsOneWidget);
+      expect(find.text('Please enter email'), findsOneWidget);
+      expect(find.text('Please enter password'), findsOneWidget);
 
       // Scenario B: Enter email and password and click login
       await tester.enterText(emailField, 'test_student@example.com');
