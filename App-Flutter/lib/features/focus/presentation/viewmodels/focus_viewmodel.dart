@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fe_mobile/core/network/api_client.dart';
+import 'package:fe_mobile/core/services/kiosk_service.dart';
 
 class FocusViewModel extends ChangeNotifier {
   final ApiClient _apiClient = ApiClient();
@@ -46,18 +47,23 @@ class FocusViewModel extends ChangeNotifier {
     if (isCountdownRunning) {
       isCountdownRunning = false;
       _countdownTimer?.cancel();
+      KioskService.stopKiosk(); // Tắt Kiosk Mode khi người dùng dừng đếm ngược
     } else {
       if (countdownRemaining.inSeconds == 0) return;
       isTreeDead = false;
       deadProgress = 0.0;
       isCountdownRunning = true;
       hasCompletedSession = false;
+      
+      KioskService.startKiosk(); // Bật Kiosk Mode khi bắt đầu tập trung
+
       _countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
         if (countdownRemaining.inSeconds > 0) {
           countdownRemaining -= const Duration(seconds: 1);
         } else {
           isCountdownRunning = false;
           _countdownTimer?.cancel();
+          KioskService.stopKiosk(); // Tắt Kiosk Mode khi hoàn thành thành công
           
           // Trải nghiệm Gamification
           lastXpEarned = countdownDuration.inMinutes;
@@ -79,6 +85,7 @@ class FocusViewModel extends ChangeNotifier {
       isCountdownRunning = false;
       _countdownTimer?.cancel();
       countdownRemaining = Duration.zero;
+      KioskService.stopKiosk(); // Tắt Kiosk Mode khi hủy phiên tập trung (cây tre chết)
     } else {
       isTreeDead = false;
       deadProgress = 0.0;

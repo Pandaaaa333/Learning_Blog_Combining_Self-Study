@@ -17,12 +17,24 @@ class FocusScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final focusVM = context.watch<FocusViewModel>();
 
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        backgroundColor: const Color(0xFFF8FAFC),
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
+    return PopScope(
+      canPop: !focusVM.isCountdownRunning,
+      onPopInvoked: (didPop) {
+        if (!didPop) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Bạn đang tập trung, không thể quay lại! 🎋'),
+              backgroundColor: Color(0xFF52B794),
+            ),
+          );
+        }
+      },
+      child: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          backgroundColor: const Color(0xFFF8FAFC),
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
           elevation: 0,
           scrolledUnderElevation: 0,
           toolbarHeight: 58,
@@ -78,8 +90,9 @@ class FocusScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 }
 
 // Hàm hỗ trợ format thời gian thành 00 : 00 : 00
